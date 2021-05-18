@@ -1,0 +1,21 @@
+Q1
+
+>mongoimport boxoffice-extended.json -d boxOffice -c exmoviestarts --jsonArray --drop
+2021-04-19T10:57:47.388+0200    connected to: mongodb://localhost/
+2021-04-19T10:57:47.393+0200    dropping: boxOffice.exmoviestarts
+2021-04-19T10:57:48.108+0200    3 document(s) imported successfully. 0 document(s) failed to import.
+
+
+Q2
+> db.exmoviestarts.find({genre: {$size:2 }}).count()
+2
+
+
+Q3
+> db.exmoviestarts.find({"meta.aired":2018}).count()
+1
+
+
+Q4
+> db.exmoviestarts.find({ratings: {$elemMatch: {$gt: 8, $lt: 10}}}).count()
+2

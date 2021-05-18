@@ -1,0 +1,23 @@
+Q1
+mongoimport tv-shows.json -d boxOffice -c movieStarts --jsonArray --drop
+
+2021-04-16T14:54:10.337+0200    connected to: mongodb://localhost/
+
+2021-04-16T14:54:10.338+0200    dropping: boxOffice.movieStarts
+
+2021-04-16T14:54:10.697+0200    240 document(s) imported successfully. 0 document(s) failed to import.
+
+
+
+Q2
+> db.movieStarts.find({$and: [{"rating.average": {$gt: 9.2}}, {runtime: {$lt: 100}}]}).count()
+6
+
+
+
+Q3
+> db.movieStarts.find({$or: [{"genres": "Drama"}, {"genres": "Action"}]}).count()
+177
+
+
+Q4 I didnt understant because I didnt find vistors field or excpetec visitors

@@ -1,0 +1,47 @@
+Q1
+> db.sports.updateOne({title:"Football"}, {$set:{title: "Football", requiresTeam: true}}, {upsert: true})
+{
+        "acknowledged" : true,
+        "matchedCount" : 0,
+        "modifiedCount" : 0,
+        "upsertedId" : ObjectId("608196d917d8e211b1efa60c")
+}
+> db.sports.updateOne({title:"Teniss"}, {$set:{title: "Teniss", requiresTeam: false}}, {upsert: true})
+{
+        "acknowledged" : true,
+        "matchedCount" : 0,
+        "modifiedCount" : 0,
+        "upsertedId" : ObjectId("608196de17d8e211b1efa60f")
+}
+
+Q2
+> db.sports.updateMany({requiresTeam:true}, {$set:{minimumPlayers: 12}}, {upsert: true})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.sports.find().pretty()
+{
+        "_id" : ObjectId("608196d917d8e211b1efa60c"),
+        "title" : "Football",
+        "requiresTeam" : true,
+        "minimumPlayers" : 12
+}
+{
+        "_id" : ObjectId("608196de17d8e211b1efa60f"),
+        "title" : "Teniss",
+        "requiresTeam" : false
+}
+
+Q3
+> db.sports.updateMany({requiresTeam:true}, {$inc:{minimumPlayers: 10}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.sports.find().pretty()
+{
+        "_id" : ObjectId("608196d917d8e211b1efa60c"),
+        "title" : "Football",
+        "requiresTeam" : true,
+        "minimumPlayers" : 22
+}
+{
+        "_id" : ObjectId("608196de17d8e211b1efa60f"),
+        "title" : "Teniss",
+        "requiresTeam" : false
+}

@@ -1,0 +1,138 @@
+Q1
+> db.places.insertOne({name: "Sheshi Skenderbej", location: {type: "Point", coordinates: [19.8099436, 41.3275445]}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6086831dbcace4e103d5044b")
+}
+> db.places.insertOne({name: "Ministria e drejtesise", location: {type: "Point", coordinates: [19.8099436, 41.3361788]}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("60868354bcace4e103d5044c")
+}
+> db.places.insertOne({name: "Kryeministria", location: {type: "Point", coordinates: [19.8080983, 41.3295405]}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("60868386bcace4e103d5044d")
+}
+
+Q2
+> db.places.createIndex({location: "2dsphere"})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 2,
+        "numIndexesAfter" : 3,
+        "ok" : 1
+}
+> db.places.find({location: {$near: {$geometry: {type: "Point", coordinates: [19.8099436, 41.3275445]}, $maxDistance: 500, $minDistance: 0}}}).pretty()
+{
+        "_id" : ObjectId("6086831dbcace4e103d5044b"),
+        "name" : "Sheshi Skenderbej",
+        "location" : {
+                "type" : "Point",
+                "coordinates" : [
+                        19.8099436,
+                        41.3275445
+                ]
+        }
+}
+{
+        "_id" : ObjectId("60868386bcace4e103d5044d"),
+        "name" : "Kryeministria",
+        "location" : {
+                "type" : "Point",
+                "coordinates" : [
+                        19.8080983,
+                        41.3295405
+                ]
+        }
+}
+
+Q3
+> db.places.updateOne({"_id": ObjectId("6086831dbcace4e103d5044b")}, {$set: {"location.coordinates": [19.818118934919628, 41.329210260023146]}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.places.find({location: {$geoWithin: {$geometry: {type: "Polygon", coordinates: [[[19.81400497631302, 41.33045680172536], [19.82239528662913, 41.32998257671471], [19.816783702740288, 41.32799079397513], [19.81400497631302, 41.33045680172536]]]}}}}).pretty()
+{
+        "_id" : ObjectId("6086831dbcace4e103d5044b"),
+        "name" : "Sheshi Skenderbej",
+        "location" : {
+                "type" : "Point",
+                "coordinates" : [
+                        19.818118934919628,
+                        41.329210260023146
+                ]
+
+
+Q4
+> db.areas.insertOne({name: "Qendra", area: {type: "Polygon", coordinates: [[[19.81400497631302, 41.33045680172536], [19.82239528662913, 41.32998257671471], [19.816783702740288, 41.32799079397513], [19.81400497631302, 41.33045680172536]]]}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("60869a83bcace4e103d5044f")
+}
+> db.areas.find().pretty()
+{
+        "_id" : ObjectId("60869a83bcace4e103d5044f"),
+        "name" : "Qendra",
+        "area" : {
+                "type" : "Polygon",
+                "coordinates" : [
+                        [
+                                [
+                                        19.81400497631302,
+                                        41.33045680172536
+                                ],
+                                [
+                                        19.82239528662913,
+                                        41.32998257671471
+                                ],
+                                [
+                                        19.816783702740288,
+                                        41.32799079397513
+                                ],
+                                [
+                                        19.81400497631302,
+                                        41.33045680172536
+                                ]
+                        ]
+                ]
+        }
+}
+> db.areas.createIndex({area: "2dsphere"})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+Q5
+> db.areas.find({area: {$geoIntersects: {$geometry: {type: "Point", coordinates: [19.818678288940703, 41.32967094125675]}}}}).pretty()
+{
+        "_id" : ObjectId("60869a83bcace4e103d5044f"),
+        "name" : "Qendra",
+        "area" : {
+                "type" : "Polygon",
+                "coordinates" : [
+                        [
+                                [
+                                        19.81400497631302,
+                                        41.33045680172536
+                                ],
+                                [
+                                        19.82239528662913,
+                                        41.32998257671471
+                                ],
+                                [
+                                        19.816783702740288,
+                                        41.32799079397513
+                                ],
+                                [
+                                        19.81400497631302,
+                                        41.33045680172536
+                                ]
+                        ]
+                ]
+        }
+}
+
+

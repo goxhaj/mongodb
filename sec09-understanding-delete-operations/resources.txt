@@ -1,0 +1,1 @@
+Official Document Deletion Docs: https://docs.mongodb.com/manual/tutorial/remove-documents/

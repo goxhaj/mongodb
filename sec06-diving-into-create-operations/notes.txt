@@ -1,0 +1,17 @@
+db.companies.insertMany([{_id: "microsoft", name: "Microsoft", profit: "200B"}, {_id:"amazon", name: "Amazon", profit: "300B"}], {ordered: false})
+
+db.companies.insertMany([{_id: "", name: "Microsoft", profit: "200B"}, {_id:"amazon", name: "Amazon", profit: "300B"}], {ordered: false, writeConcern: {w:1, j:false}})
+
+terminal$: mongoimport tv-shows.json -d movieData -c movies --jsonArray --drop
+
+Helpful Articles/ Docs:
+
+insertOne(): https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/
+
+insertMany(): https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/
+
+Atomicity: https://docs.mongodb.com/manual/core/write-operations-atomicity/#atomicity
+
+Write Concern: https://docs.mongodb.com/manual/reference/write-concern/
+
+Using mongoimport: https://docs.mongodb.com/manual/reference/program/mongoimport/index.html

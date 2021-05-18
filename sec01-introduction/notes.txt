@@ -1,0 +1,48 @@
+MongoDB Installation FAQ + Support
+PLEASE READ!
+
+IMPORTANT - For macOS Catalina Users
+
+If you're on macOS Catalina, there has been a hidden change in the operating system. You're NOT able to use /data/db as a database folder anymore. Instead, you have to use a non-root path (e.g. ~/data/db).
+
+Everything should go smooth when installing MongoDB but if you're facing any issues, here are a couple of helpful hints + resources that should help you.
+
+1) Check the Official Docs
+
+It sounds cheap but the official docs are really good. If you're facing any issues or you're not sure about some step, check the official installation guide for your operating system and make sure you follow the instructions step-by-step.
+
+Windows => https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+macOS => https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
+Linux => https://docs.mongodb.com/manual/administration/install-on-linux/
+
+2) The Database Path
+
+MongoDB needs to store your database data somewhere - and it does so in real files. On Windows, these files are stored in a path which you define during installation (for the Windows service).
+
+On macOS and Linux, MongoDB by default uses /data/db as the storage path. It also assumes a similar path (C:\data\db) on Windows when NOT using the MongoDB service (i.e. when manually executing the mongod command).
+
+You can always change the path by running:
+
+mongod --dbpath "my/new/path" (on Windows, use backslashes + the drive name => mongod --dbpath "C:\my\path").
+
+3) Permissions
+
+Make sure that MongoDB is allowed to write to the path you specified. If you're getting any permission errors, try running
+
+sudo mongod
+
+on macOS and Linux.
+
+On Windows, run the command prompt as administrator (right click on the command prompt executable => "Run as administrator").
+
+#########################################################
+
+Installing mongoimport
+
+In the next lecture, we install MongoDB.
+
+Generally, that works as shown but one tool needs to be installed separately now: mongoimport https://docs.mongodb.com/database-tools/mongoimport/#installation
+
+This ensures that you'll be able to run the mongoimport command throughout the course.
